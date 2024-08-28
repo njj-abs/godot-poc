@@ -14,6 +14,13 @@ config/name="Poc"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+DragDropController="*res://addons/DragDrop3D/DragDropController.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/DragDrop3D/plugin.cfg", "res://addons/monitor_overlay/plugin.cfg")
 
 [rendering]
 
