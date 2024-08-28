@@ -1,0 +1,117 @@
+[gd_scene load_steps=13 format=3 uid="uid://cuqfr01cmydtb"]
+
+[ext_resource type="Script" path="res://addons/DragDrop3D/Draggable.gd" id="1_ycsqi"]
+[ext_resource type="Texture2D" uid="uid://d4bjm02oata7v" path="res://icon.svg" id="2_20hg0"]
+
+[sub_resource type="GDScript" id="GDScript_l0q86"]
+script/source = "extends RigidBody3D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+  pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_Draggable_drag_move(node, cast):
+  var position = cast['position']
+  set_position(Vector3(position.x, 1 ,position.z))
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uv32u"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_m4nun"]
+lightmap_size_hint = Vector2i(24, 21)
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkin1"]
+resource_local_to_scene = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_7b0ud"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_javei"]
+bg_color = Color(0.744648, 0.49283, 0.775244, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kw1eo"]
+font_size = 143
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_jninv"]
+viewport_path = NodePath("RigidBody3D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvxs8"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_jninv")
+
+[sub_resource type="QuadMesh" id="QuadMesh_vruq6"]
+size = Vector2(2, 2)
+orientation = 1
+
+[node name="SoftBody" type="RigidBody3D"]
+collision_layer = 2
+script = SubResource("GDScript_l0q86")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("BoxShape3D_uv32u")
+
+[node name="SoftBody3D" type="SoftBody3D" parent="CollisionShape3D"]
+visible = false
+mesh = SubResource("BoxMesh_m4nun")
+skeleton = NodePath("../../..")
+parent_collision_ignore = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_qkin1")
+mesh = SubResource("BoxMesh_7b0ud")
+
+[node name="Draggable" type="Node" parent="."]
+script = ExtResource("1_ycsqi")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(200, 200)
+render_target_update_mode = 4
+
+[node name="Panel" type="Panel" parent="SubViewport"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_javei")
+
+[node name="Label" type="Label" parent="SubViewport/Panel"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "5"
+label_settings = SubResource("LabelSettings_kw1eo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Face" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+material_override = SubResource("StandardMaterial3D_uvxs8")
+mesh = SubResource("QuadMesh_vruq6")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.6, 0)
+light_projector = ExtResource("2_20hg0")
+shadow_enabled = true
+shadow_opacity = 0.0
+spot_range = 3.886
+spot_angle = 61.37
+
+[connection signal="drag_move" from="Draggable" to="." method="_on_Draggable_drag_move"]

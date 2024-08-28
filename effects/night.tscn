@@ -1,0 +1,362 @@
+[gd_scene load_steps=22 format=3 uid="uid://xjxlqw2wqfs4"]
+
+[ext_resource type="Texture2D" uid="uid://d4bjm02oata7v" path="res://icon.svg" id="2_0owqq"]
+[ext_resource type="Script" path="res://addons/DragDrop3D/Draggable.gd" id="2_1qike"]
+[ext_resource type="PackedScene" uid="uid://cuqfr01cmydtb" path="res://effects/soft_body.tscn" id="3_k70u2"]
+[ext_resource type="Script" path="res://addons/monitor_overlay/monitor_overlay.gd" id="4_mlrwg"]
+
+[sub_resource type="GDScript" id="GDScript_dj6dd"]
+script/source = "extends RigidBody3D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+  pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_Draggable_drag_move(node, cast):
+  var position = cast['position']
+  set_position(Vector3(position.x, 1 ,position.z))
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o208a"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0yb7b"]
+resource_local_to_scene = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_be6qy"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bb0se"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_y50bx"]
+font_size = 143
+font_color = Color(0.0962047, 0.0962048, 0.0962047, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_17t0q"]
+viewport_path = NodePath("RigidBody3D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73xaf"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_17t0q")
+
+[sub_resource type="QuadMesh" id="QuadMesh_bs7ct"]
+size = Vector2(2, 2)
+orientation = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_e5nyt"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uakir"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q1msk"]
+albedo_color = Color(0.969428, 0.672911, 0.483706, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ex8vr"]
+size = Vector2(35, 26)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_54qwk"]
+size = Vector3(35, 5, 26)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_iq72s"]
+size = Vector2(6, 4)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_aup01"]
+size = Vector2(5, 8)
+
+[sub_resource type="Environment" id="Environment_c7rtd"]
+background_energy_multiplier = 0.09
+
+[node name="Night" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 6.775, 0)
+projection = 1
+size = 10.91
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5)
+collision_layer = 2
+script = SubResource("GDScript_dj6dd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("BoxShape3D_o208a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_0yb7b")
+mesh = SubResource("BoxMesh_be6qy")
+
+[node name="Draggable" type="Node" parent="RigidBody3D"]
+script = ExtResource("2_1qike")
+
+[node name="SubViewport" type="SubViewport" parent="RigidBody3D"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(200, 200)
+render_target_update_mode = 4
+
+[node name="Panel" type="Panel" parent="RigidBody3D/SubViewport"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bb0se")
+
+[node name="Label" type="Label" parent="RigidBody3D/SubViewport/Panel"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "5"
+label_settings = SubResource("LabelSettings_y50bx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Face" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+material_override = SubResource("StandardMaterial3D_73xaf")
+mesh = SubResource("QuadMesh_bs7ct")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.6, 0)
+light_projector = ExtResource("2_0owqq")
+shadow_enabled = true
+shadow_opacity = 0.0
+spot_range = 12.0
+spot_attenuation = 0.101532
+spot_angle = 90.0
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+collision_layer = 2
+script = SubResource("GDScript_dj6dd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("BoxShape3D_o208a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_0yb7b")
+mesh = SubResource("BoxMesh_be6qy")
+
+[node name="Draggable" type="Node" parent="RigidBody3D2"]
+script = ExtResource("2_1qike")
+
+[node name="SubViewport" type="SubViewport" parent="RigidBody3D2"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(200, 200)
+render_target_update_mode = 4
+
+[node name="Panel" type="Panel" parent="RigidBody3D2/SubViewport"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bb0se")
+
+[node name="Label" type="Label" parent="RigidBody3D2/SubViewport/Panel"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "5"
+label_settings = SubResource("LabelSettings_y50bx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Face" type="MeshInstance3D" parent="RigidBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+material_override = SubResource("StandardMaterial3D_73xaf")
+mesh = SubResource("QuadMesh_bs7ct")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="RigidBody3D2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.6, 0)
+spot_range = 12.0
+spot_attenuation = 0.101
+spot_angle = 90.0
+
+[node name="RigidBody3D3" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+collision_layer = 2
+script = SubResource("GDScript_dj6dd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("BoxShape3D_o208a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D3/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_0yb7b")
+mesh = SubResource("BoxMesh_be6qy")
+
+[node name="Draggable" type="Node" parent="RigidBody3D3"]
+script = ExtResource("2_1qike")
+
+[node name="SubViewport" type="SubViewport" parent="RigidBody3D3"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(200, 200)
+render_target_update_mode = 4
+
+[node name="Panel" type="Panel" parent="RigidBody3D3/SubViewport"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bb0se")
+
+[node name="Label" type="Label" parent="RigidBody3D3/SubViewport/Panel"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "5"
+label_settings = SubResource("LabelSettings_y50bx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Face" type="MeshInstance3D" parent="RigidBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+material_override = SubResource("StandardMaterial3D_73xaf")
+mesh = SubResource("QuadMesh_bs7ct")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="RigidBody3D3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.6, 0)
+spot_range = 12.0
+spot_attenuation = 0.101
+spot_angle = 90.0
+
+[node name="RigidBody3D4" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.90101, 0)
+visible = false
+collision_layer = 2
+script = SubResource("GDScript_dj6dd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+visible = false
+shape = SubResource("BoxShape3D_o208a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D4/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_0yb7b")
+mesh = SubResource("BoxMesh_be6qy")
+
+[node name="Draggable" type="Node" parent="RigidBody3D4"]
+script = ExtResource("2_1qike")
+
+[node name="SubViewport" type="SubViewport" parent="RigidBody3D4"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(200, 200)
+render_target_update_mode = 4
+
+[node name="Panel" type="Panel" parent="RigidBody3D4/SubViewport"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bb0se")
+
+[node name="Label" type="Label" parent="RigidBody3D4/SubViewport/Panel"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "5"
+label_settings = SubResource("LabelSettings_y50bx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Face" type="MeshInstance3D" parent="RigidBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_73xaf")
+mesh = SubResource("QuadMesh_bs7ct")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="RigidBody3D4"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.136719, 0)
+shadow_opacity = 0.0
+distance_fade_begin = 4096.0
+spot_attenuation = 0.594602
+spot_angle = 45.45
+spot_angle_attenuation = 0.784584
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="RigidBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.79385, 0)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="RigidBody3D4/CSGCombiner3D"]
+mesh = SubResource("BoxMesh_e5nyt")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="RigidBody3D4/CSGCombiner3D"]
+operation = 2
+size = Vector3(1.8, 3, 1.8)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+visible = false
+mesh = SubResource("PlaneMesh_uakir")
+
+[node name="SoftBody" parent="." instance=ExtResource("3_k70u2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.79914)
+visible = false
+
+[node name="DragFloor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance2" type="MeshInstance3D" parent="DragFloor"]
+material_override = SubResource("StandardMaterial3D_q1msk")
+mesh = SubResource("PlaneMesh_ex8vr")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DragFloor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.43222, 0)
+shape = SubResource("BoxShape3D_54qwk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.394115, 0.102836, -0.91329, 0.883724, 0.230498, 0.407311, 0.252398, -0.967624, -3.56516e-05, -7.09822, 2.70042, -2.20669)
+visible = false
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("PlaneMesh_iq72s")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.566619, 0)
+visible = false
+mesh = SubResource("PlaneMesh_aup01")
+
+[node name="MonitorOverlay" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(300, 0)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -374.0
+offset_right = 300.0
+grow_vertical = 0
+script = ExtResource("4_mlrwg")
+static_memory = true
+video_memory = true
+texture_memory = true
+active_objects_3d = true
+collision_pairs_3d = true
+islands_3d = true
+background_color = Color(0, 0, 0, 0.0627451)
+graph_color = Color(0.0823529, 0.772549, 0.0352941, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_c7rtd")
+
+[connection signal="drag_move" from="RigidBody3D/Draggable" to="RigidBody3D" method="_on_Draggable_drag_move"]
+[connection signal="drag_move" from="RigidBody3D2/Draggable" to="RigidBody3D2" method="_on_Draggable_drag_move"]
+[connection signal="drag_move" from="RigidBody3D3/Draggable" to="RigidBody3D3" method="_on_Draggable_drag_move"]
+[connection signal="drag_move" from="RigidBody3D4/Draggable" to="RigidBody3D4" method="_on_Draggable_drag_move"]
