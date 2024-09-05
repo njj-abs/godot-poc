@@ -16,6 +16,9 @@ var antialiased: bool
 var _history := []
 var _last_value: float
 
+func _ready():
+	mouse_filter = Control.MOUSE_FILTER_PASS
+
 
 func _draw() -> void:
 	_update_history()
