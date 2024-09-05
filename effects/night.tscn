@@ -78,9 +78,7 @@ size = Vector2(6, 4)
 size = Vector2(5, 8)
 
 [sub_resource type="Environment" id="Environment_c7rtd"]
-background_mode = 1
-background_color = Color(1, 1, 1, 1)
-background_energy_multiplier = 0.01
+background_energy_multiplier = 0.03
 
 [node name="Night" type="Node3D"]
 
@@ -348,11 +346,11 @@ offset_right = 300.0
 grow_vertical = 0
 script = ExtResource("4_mlrwg")
 static_memory = true
+resources = true
 video_memory = true
 texture_memory = true
 active_objects_3d = true
 collision_pairs_3d = true
-islands_3d = true
 background_color = Color(0, 0, 0, 0.0627451)
 graph_color = Color(0.0823529, 0.772549, 0.0352941, 1)
 
