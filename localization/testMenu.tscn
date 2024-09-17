@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6qm8huuidv0q"]
+
+[ext_resource type="Script" path="res://localization/testMenu.gd" id="1_0hmok"]
+
+[node name="TestMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0hmok")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CenterContainer/GridContainer"]
+layout_mode = 2
+text = "hello"
+
+[connection signal="pressed" from="CenterContainer/GridContainer/Button" to="." method="_on_button_pressed"]
