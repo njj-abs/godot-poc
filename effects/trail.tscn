@@ -1,0 +1,253 @@
+[gd_scene load_steps=32 format=3 uid="uid://b0vclqt83fay"]
+
+[ext_resource type="Script" path="res://effects/trail.gd" id="1_8622i"]
+[ext_resource type="Script" path="res://addons/DragDrop3D/Draggable.gd" id="1_ena6f"]
+[ext_resource type="Texture2D" uid="uid://d4bjm02oata7v" path="res://icon.svg" id="2_cyar3"]
+[ext_resource type="Texture2D" uid="uid://cptsrvp2p5aty" path="res://assets/background1.webp" id="2_kls02"]
+[ext_resource type="Script" path="res://effects/Sprite2D2.gd" id="4_d5ov0"]
+[ext_resource type="Texture2D" uid="uid://8rx44rd52m0m" path="res://assets/spiky_14.png" id="6_e112m"]
+[ext_resource type="Texture2D" uid="uid://cnw8bm5grx3nu" path="res://assets/spiky_13.png" id="7_nyrc7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rn0pl"]
+albedo_color = Color(0.802888, 0.440913, 0.171837, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t664m"]
+size = Vector2(35, 26)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rn2va"]
+size = Vector3(35, 5, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4m0c8"]
+atlas = ExtResource("2_kls02")
+region = Rect2(1285, 725, 1282, 720)
+
+[sub_resource type="GDScript" id="GDScript_8xx85"]
+script/source = "extends RigidBody3D
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+@onready var sprite = $\"../Sprite2D\"
+@onready var gpu_particles_3d = $\"../GPUParticles3D\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_Draggable_drag_move(node, cast):
+	sprite.draging = true
+	var position = cast['position']
+	gpu_particles_3d.position = Vector3(position.x, 0 ,position.z)
+	set_position(Vector3(position.x, 1 ,position.z))
+
+
+func _on_draggable_drag_stop(_node):
+	sprite.draging = false
+
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0nlm3"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08mdm"]
+resource_local_to_scene = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_l0eow"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8bxs"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6yonq"]
+font_size = 143
+font_color = Color(0.0962047, 0.0962048, 0.0962047, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_17t0q"]
+viewport_path = NodePath("RigidBody3D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8thm3"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_17t0q")
+
+[sub_resource type="QuadMesh" id="QuadMesh_swgjs"]
+size = Vector2(2, 2)
+orientation = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_led00"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_trkj6"]
+max_value = 8.0
+_data = [Vector2(0.0333333, 8), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_n8nic"]
+curve = SubResource("Curve_trkj6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m1lt2"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 0.0
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 70.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.02
+scale_curve = SubResource("CurveTexture_n8nic")
+color = Color(0.939854, 0.885042, 0.92951, 0.294118)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_isab6"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("7_nyrc7")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_5utyh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ytdxe"]
+curve = SubResource("Curve_5utyh")
+
+[sub_resource type="Curve" id="Curve_mlfa6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b8gnj"]
+curve = SubResource("Curve_mlfa6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cwvbc"]
+emission_shape = 1
+emission_sphere_radius = 0.01
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 1, 0)
+spread = 35.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_b8gnj")
+color = Color(0.918445, 0.890346, 0.954323, 0.509804)
+alpha_curve = SubResource("CurveTexture_ytdxe")
+
+[sub_resource type="QuadMesh" id="QuadMesh_n8ygm"]
+
+[node name="Trail" type="Node3D"]
+script = ExtResource("1_8622i")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 6.775, 0)
+projection = 1
+size = 10.91
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance2" type="MeshInstance3D" parent="Floor"]
+material_override = SubResource("StandardMaterial3D_rn0pl")
+mesh = SubResource("PlaneMesh_t664m")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.43222, 0)
+shape = SubResource("BoxShape3D_rn2va")
+
+[node name="Sprite3D" type="Sprite3D" parent="Floor"]
+transform = Transform3D(1.5, 0, 0, 0, -6.55671e-08, 1.5, 0, -1.5, -6.55671e-08, 0, 0, 0)
+texture = SubResource("AtlasTexture_4m0c8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.394115, 0.102836, -0.91329, 0.883724, 0.230498, 0.407311, 0.252398, -0.967624, -3.56516e-05, -7.09822, 2.70042, -2.20669)
+shadow_enabled = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5)
+collision_layer = 2
+script = SubResource("GDScript_8xx85")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("BoxShape3D_0nlm3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+material_override = SubResource("StandardMaterial3D_08mdm")
+mesh = SubResource("BoxMesh_l0eow")
+
+[node name="Draggable" type="Node" parent="RigidBody3D"]
+script = ExtResource("1_ena6f")
+
+[node name="SubViewport" type="SubViewport" parent="RigidBody3D"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(200, 200)
+render_target_update_mode = 4
+
+[node name="Panel" type="Panel" parent="RigidBody3D/SubViewport"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_y8bxs")
+
+[node name="Label" type="Label" parent="RigidBody3D/SubViewport/Panel"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "5"
+label_settings = SubResource("LabelSettings_6yonq")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Face" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+material_override = SubResource("StandardMaterial3D_8thm3")
+mesh = SubResource("QuadMesh_swgjs")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.6, 0)
+visible = false
+light_projector = ExtResource("2_cyar3")
+shadow_enabled = true
+shadow_opacity = 0.0
+spot_range = 12.0
+spot_attenuation = 0.101532
+spot_angle = 85.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+script = ExtResource("4_d5ov0")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite2D"]
+material = SubResource("CanvasItemMaterial_led00")
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_m1lt2")
+texture = ExtResource("6_e112m")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_isab6")
+cast_shadow = 0
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_cwvbc")
+draw_pass_1 = SubResource("QuadMesh_n8ygm")
+
+[connection signal="drag_move" from="RigidBody3D/Draggable" to="RigidBody3D" method="_on_Draggable_drag_move"]
+[connection signal="drag_stop" from="RigidBody3D/Draggable" to="RigidBody3D" method="_on_draggable_drag_stop"]

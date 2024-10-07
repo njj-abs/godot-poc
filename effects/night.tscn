@@ -45,13 +45,13 @@ bg_color = Color(1, 1, 1, 1)
 font_size = 143
 font_color = Color(0.0962047, 0.0962048, 0.0962047, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_17t0q"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_pkk4b"]
 viewport_path = NodePath("RigidBody3D/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73xaf"]
 resource_local_to_scene = true
 transparency = 1
-albedo_texture = SubResource("ViewportTexture_17t0q")
+albedo_texture = SubResource("ViewportTexture_pkk4b")
 
 [sub_resource type="QuadMesh" id="QuadMesh_bs7ct"]
 size = Vector2(2, 2)
@@ -337,6 +337,7 @@ visible = false
 mesh = SubResource("PlaneMesh_aup01")
 
 [node name="MonitorOverlay" type="VBoxContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 anchors_preset = 2
 anchor_top = 1.0

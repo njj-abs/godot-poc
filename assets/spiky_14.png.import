@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://8rx44rd52m0m"
-path.s3tc="res://.godot/imported/spiky_14.png-ba1e3e2bec132a210e9a6bc9480a4875.s3tc.ctex"
-path.etc2="res://.godot/imported/spiky_14.png-ba1e3e2bec132a210e9a6bc9480a4875.etc2.ctex"
+path.s3tc="res://.godot/imported/spiky_14.png-5f30b42df3f6bdc75b095db72a8b305d.s3tc.ctex"
+path.etc2="res://.godot/imported/spiky_14.png-5f30b42df3f6bdc75b095db72a8b305d.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://spiky_14.png"
-dest_files=["res://.godot/imported/spiky_14.png-ba1e3e2bec132a210e9a6bc9480a4875.s3tc.ctex", "res://.godot/imported/spiky_14.png-ba1e3e2bec132a210e9a6bc9480a4875.etc2.ctex"]
+source_file="res://assets/spiky_14.png"
+dest_files=["res://.godot/imported/spiky_14.png-5f30b42df3f6bdc75b095db72a8b305d.s3tc.ctex", "res://.godot/imported/spiky_14.png-5f30b42df3f6bdc75b095db72a8b305d.etc2.ctex"]
 
 [params]
 
