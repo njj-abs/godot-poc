@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://r74nfq17fqhx"]
+
+[ext_resource type="Texture2D" uid="uid://chvj3ip53qa07" path="res://assets/flowers.png" id="1_he55m"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vsatd"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_28yph"]
+offsets = PackedFloat32Array(0, 0.254098, 0.762295, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.784314, 1, 1, 1, 0.784314, 1, 1, 1, 0.00392157)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_egor3"]
+gradient = SubResource("Gradient_28yph")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qqv6m"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1280, 720, 1)
+spread = 20.0
+initial_velocity_min = 20.0
+initial_velocity_max = 80.0
+angular_velocity_max = 50.0
+gravity = Vector3(0, 10, 0)
+scale_min = 0.1
+scale_max = 0.3
+color_ramp = SubResource("GradientTexture1D_egor3")
+anim_offset_max = 1.0
+
+[node name="FlowersParticle" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_vsatd")
+position = Vector2(515, 253)
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_qqv6m")
+texture = ExtResource("1_he55m")
