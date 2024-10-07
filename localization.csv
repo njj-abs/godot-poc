@@ -1,3 +1,4 @@
 key,en,es
 MenuButton,Button,Boton
-hello,HelloEN,HelloES
+hello,HelloEN{ph},HelloES{ph}
+ph,back,front
