@@ -22,6 +22,10 @@ DragDropController="*res://addons/DragDrop3D/DragDropController.gd"
 
 enabled=PackedStringArray("res://addons/DragDrop3D/plugin.cfg", "res://addons/monitor_overlay/plugin.cfg", "res://addons/shaderconverter/plugin.cfg")
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [internationalization]
 
 locale/translations=PackedStringArray("res://localization.en.translation", "res://localization.es.translation")
