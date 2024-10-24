@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b3snkye5hbqdi"]
+[gd_scene load_steps=14 format=3 uid="uid://b3snkye5hbqdi"]
 
 [ext_resource type="Shader" path="res://effects/ripple/resources/defaultRipple.gdshader" id="1_bgjba"]
 [ext_resource type="Texture2D" uid="uid://cptsrvp2p5aty" path="res://assets/background1.webp" id="2_uh1ty"]
@@ -8,6 +8,7 @@
 [ext_resource type="Shader" path="res://effects/ripple/resources/newRipple.gdshader" id="6_q3fhw"]
 [ext_resource type="Texture2D" uid="uid://d4bjm02oata7v" path="res://icon.svg" id="7_nkiv2"]
 [ext_resource type="Shader" path="res://effects/ripple/resources/transparentRipple.gdshader" id="8_m40my"]
+[ext_resource type="Script" path="res://addons/monitor_overlay/monitor_overlay.gd" id="9_uyvqr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kjroh"]
 shader = ExtResource("1_bgjba")
@@ -113,3 +114,22 @@ offset_right = -796.0
 offset_bottom = -320.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MonitorOverlay" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -374.0
+offset_right = 300.0
+grow_vertical = 0
+script = ExtResource("9_uyvqr")
+static_memory = true
+resources = true
+video_memory = true
+texture_memory = true
+active_objects_3d = true
+collision_pairs_3d = true
+background_color = Color(0, 0, 0, 0.0627451)
+graph_color = Color(0.0823529, 0.772549, 0.0352941, 1)
