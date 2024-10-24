@@ -17,7 +17,10 @@ shader_parameter/iChannel0 = ExtResource("2_uh1ty")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kwfh1"]
 shader = ExtResource("3_qj40v")
-shader_parameter/touch_position = Vector2(1, 1)
+shader_parameter/touch_positions = null
+shader_parameter/start_time = null
+shader_parameter/end_time = null
+shader_parameter/custom_times = null
 shader_parameter/size = 5.0
 shader_parameter/speed = 0.1
 shader_parameter/frequency = 15.0
