@@ -1,25 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://5tkidwxg0cys"]
+[gd_scene load_steps=5 format=3 uid="uid://5tkidwxg0cys"]
 
 [ext_resource type="Texture2D" uid="uid://b1i6xivq584mj" path="res://assets/Particles/Complex/lines/lines_3.png" id="1_sb2tn"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eihl7"]
 blend_mode = 1
 
+[sub_resource type="Curve" id="Curve_qwo7v"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.338323), -2.10062, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_q332i"]
+offsets = PackedFloat32Array(0, 0.771186, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="Spark" type="CPUParticles2D"]
 material = SubResource("CanvasItemMaterial_eihl7")
 position = Vector2(496, 285)
 emitting = false
 amount = 100
-lifetime = 2.0
+lifetime = 1.5
 one_shot = true
+speed_scale = 1.5
 explosiveness = 1.0
+randomness = 0.1
+lifetime_randomness = 0.1
 fixed_fps = 30
 draw_order = 1
 texture = ExtResource("1_sb2tn")
+particle_flag_align_y = true
 direction = Vector2(0, 0)
 spread = 180.0
-gravity = Vector2(0, -9.8)
-initial_velocity_min = 50.0
-initial_velocity_max = 75.0
-scale_amount_min = 0.1
+gravity = Vector2(0, 35)
+initial_velocity_min = 45.0
+initial_velocity_max = 100.0
+scale_amount_min = 0.07
 scale_amount_max = 0.1
+scale_amount_curve = SubResource("Curve_qwo7v")
+color_ramp = SubResource("Gradient_q332i")
