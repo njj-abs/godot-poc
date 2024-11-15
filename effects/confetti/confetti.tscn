@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://beb03lbtru0r0"]
+
+[sub_resource type="Gradient" id="Gradient_qcbwq"]
+offsets = PackedFloat32Array(0, 0.238532, 0.513761, 0.688073, 0.862385)
+colors = PackedColorArray(1, 0, 0, 1, 1.63645e-06, 0.737088, 0.529534, 1, 0, 0.437371, 0.731508, 1, 1, 1, 0, 1, 1, 1, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_e7wxi"]
+gradient = SubResource("Gradient_qcbwq")
+
+[sub_resource type="Curve" id="Curve_w3sfw"]
+_data = [Vector2(0, 0.131868), 0.0, 2.77444, 0, 0, Vector2(0.97561, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_d0htc"]
+curve = SubResource("Curve_w3sfw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l3y2m"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+direction = Vector3(1, -0.5, 0)
+spread = 30.0
+initial_velocity_min = 500.0
+initial_velocity_max = 500.0
+gravity = Vector3(0, 91, 0)
+linear_accel_min = 200.0
+linear_accel_max = 200.0
+scale_min = 12.0
+scale_max = 12.0
+scale_curve = SubResource("CurveTexture_d0htc")
+color_ramp = SubResource("GradientTexture1D_e7wxi")
+
+[node name="Confetti" type="Node2D"]
+
+[node name="Left" type="GPUParticles2D" parent="."]
+position = Vector2(4, 344)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_l3y2m")
+explosiveness = 0.6
+visibility_rect = Rect2(-200, -200, 400, 400)
