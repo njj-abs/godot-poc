@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://5tkidwxg0cys"]
+
+[ext_resource type="Texture2D" uid="uid://b1i6xivq584mj" path="res://assets/Particles/Complex/lines/lines_3.png" id="1_sb2tn"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_eihl7"]
+blend_mode = 1
+
+[node name="Spark" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_eihl7")
+position = Vector2(496, 285)
+emitting = false
+amount = 100
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 30
+draw_order = 1
+texture = ExtResource("1_sb2tn")
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, -9.8)
+initial_velocity_min = 50.0
+initial_velocity_max = 75.0
+scale_amount_min = 0.1
+scale_amount_max = 0.1

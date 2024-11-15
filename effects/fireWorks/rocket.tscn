@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6tov8rsqotb"]
+
+[ext_resource type="Texture2D" uid="uid://ueb71e84w78l" path="res://assets/Particles/Complex/lines/lines_5.png" id="1_ngi8d"]
+[ext_resource type="Script" path="res://effects/fireWorks/rocket.gd" id="2_2y331"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_alu6s"]
+blend_mode = 1
+
+[node name="Rocket" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_alu6s")
+position = Vector2(600, 300)
+amount = 12
+lifetime = 0.2
+explosiveness = 0.1
+fixed_fps = 30
+local_coords = true
+texture = ExtResource("1_ngi8d")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(0, -1)
+spread = 5.0
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+color = Color(0.494118, 0.4, 0, 1)
+script = ExtResource("2_2y331")
