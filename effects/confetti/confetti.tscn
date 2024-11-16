@@ -1,67 +1,29 @@
-[gd_scene load_steps=9 format=3 uid="uid://beb03lbtru0r0"]
+[gd_scene load_steps=4 format=3 uid="uid://beb03lbtru0r0"]
 
-[sub_resource type="Gradient" id="Gradient_qcbwq"]
-offsets = PackedFloat32Array(0, 0.238532, 0.513761, 0.688073, 0.862385)
-colors = PackedColorArray(1, 0, 0, 1, 1.63645e-06, 0.737088, 0.529534, 1, 0, 0.437371, 0.731508, 1, 1, 1, 0, 1, 1, 1, 0, 0)
+[ext_resource type="Texture2D" uid="uid://cptsrvp2p5aty" path="res://assets/background1.webp" id="1_oialm"]
+[ext_resource type="PackedScene" uid="uid://c8mx055fde1iv" path="res://effects/confetti/confittParticles.tscn" id="2_qs27v"]
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_wkukq"]
-gradient = SubResource("Gradient_qcbwq")
-
-[sub_resource type="Curve" id="Curve_w3sfw"]
-_data = [Vector2(0.00406504, 0.131868), 0.0, 2.77444, 0, 0, Vector2(0.97561, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_2t8tg"]
-curve = SubResource("Curve_w3sfw")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l3y2m"]
-resource_local_to_scene = true
-particle_flag_disable_z = true
-direction = Vector3(1, -0.5, 0)
-spread = 30.0
-initial_velocity_min = 500.0
-initial_velocity_max = 500.0
-gravity = Vector3(0, 150, 0)
-linear_accel_min = 200.0
-linear_accel_max = 300.0
-scale_min = 12.0
-scale_max = 12.0
-scale_curve = SubResource("CurveTexture_2t8tg")
-color_ramp = SubResource("GradientTexture1D_wkukq")
-
-[sub_resource type="Curve" id="Curve_k0v7s"]
-_data = [Vector2(0, 0.131868), 0.0, 2.80342, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_1mctv"]
-curve = SubResource("Curve_k0v7s")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ll2o"]
-particle_flag_disable_z = true
-direction = Vector3(-1, -0.5, 0)
-spread = 30.0
-initial_velocity_min = 500.0
-initial_velocity_max = 500.0
-gravity = Vector3(0, 150, 0)
-linear_accel_min = 200.0
-linear_accel_max = 300.0
-scale_min = 12.0
-scale_max = 12.0
-scale_curve = SubResource("CurveTexture_1mctv")
-color_ramp = SubResource("GradientTexture1D_wkukq")
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8u1b"]
+atlas = ExtResource("1_oialm")
+region = Rect2(0, 725, 1281, 720)
 
 [node name="Confetti" type="Node2D"]
 
-[node name="Left" type="GPUParticles2D" parent="."]
-position = Vector2(4, 344)
-amount = 10
-process_material = SubResource("ParticleProcessMaterial_l3y2m")
-explosiveness = 0.6
-visibility_rect = Rect2(-200, -200, 400, 400)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
 
-[node name="Right" type="GPUParticles2D" parent="."]
-position = Vector2(1152, 344)
-amount = 10
-process_material = SubResource("ParticleProcessMaterial_3ll2o")
-explosiveness = 0.6
-visibility_rect = Rect2(-200, -200, 400, 400)
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_j8u1b")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Left" parent="." instance=ExtResource("2_qs27v")]
+
+[node name="Left2" parent="." instance=ExtResource("2_qs27v")]
+position = Vector2(1280, 0)
+scale = Vector2(-1, 1)

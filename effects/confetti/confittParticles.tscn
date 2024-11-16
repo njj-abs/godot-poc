@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8mx055fde1iv"]
+
+[ext_resource type="Texture2D" uid="uid://bhf2tcclvtjct" path="res://assets/Particles/confetti.png" id="1_a5pw5"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_m8u0v"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_y8h2x"]
+_data = [Vector2(0, 1), 0.0, -2.16626, 0, 0, Vector2(0.992701, 0.0269461), -5.86556, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_w3sfw"]
+_data = [Vector2(0.00406504, 0.131868), 0.0, 2.77444, 0, 0, Vector2(0.97561, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_x558l"]
+offsets = PackedFloat32Array(0, 0.886179, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_qcbwq"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8)
+colors = PackedColorArray(1, 0.32549, 0.32549, 1, 1, 0.933333, 0.32549, 1, 0.32549, 1, 0.662745, 1, 0.32549, 0.584314, 1, 1, 0.95, 0.576967, 0.228, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 5
+
+[node name="ConfittParticles" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_m8u0v")
+position = Vector2(0, 504)
+amount = 30
+lifetime = 2.0
+explosiveness = 0.6
+randomness = 1.0
+lifetime_randomness = 1.0
+fixed_fps = 30
+local_coords = true
+draw_order = 1
+texture = ExtResource("1_a5pw5")
+direction = Vector2(1, -1)
+spread = 30.0
+gravity = Vector2(0, 300)
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+angular_velocity_min = -600.0
+angular_velocity_max = 600.0
+linear_accel_min = 200.0
+linear_accel_max = 300.0
+linear_accel_curve = SubResource("Curve_y8h2x")
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+scale_amount_curve = SubResource("Curve_w3sfw")
+color_ramp = SubResource("Gradient_x558l")
+color_initial_ramp = SubResource("Gradient_qcbwq")
+anim_offset_max = 1.0
