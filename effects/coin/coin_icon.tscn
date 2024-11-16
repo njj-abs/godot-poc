@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://by7i77cohel5h"]
+
+[ext_resource type="Texture2D" uid="uid://c245umbceihnx" path="res://assets/icon1.webp" id="1_8e14x"]
+[ext_resource type="Script" path="res://effects/coin/coin_icon.gd" id="2_pcoe8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huk5e"]
+atlas = ExtResource("1_8e14x")
+region = Rect2(816, 2438, 387, 384)
+
+[node name="CoinIcon" type="TextureRect"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -747.0
+offset_top = 12.0
+offset_right = -647.0
+offset_bottom = 112.0
+grow_horizontal = 2
+texture = SubResource("AtlasTexture_huk5e")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("2_pcoe8")

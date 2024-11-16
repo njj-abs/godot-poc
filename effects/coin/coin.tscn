@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqofdxdaulk4s"]
+
+[ext_resource type="PackedScene" uid="uid://by7i77cohel5h" path="res://effects/coin/coin_icon.tscn" id="1_wxscb"]
+[ext_resource type="Script" path="res://effects/coin/coin.gd" id="1_x3vna"]
+
+[node name="Coin" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x3vna")
+
+[node name="CoinIcon" parent="." instance=ExtResource("1_wxscb")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 424.0
+offset_top = 68.0
+offset_right = 524.0
+offset_bottom = 168.0
+grow_horizontal = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 398.0
+offset_top = 552.0
+offset_right = 728.0
+offset_bottom = 648.0
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
