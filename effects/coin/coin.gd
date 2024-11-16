@@ -10,19 +10,15 @@ func _ready():
 	_animateCoin()
 
 func _animateCoin():
-	coinIcon.blast.emitting = true
 	for i in coinAmount:
 		var coin = await _createCoin()
-		var tween = coin.play(coinIcon)
-
+		coin.play(coinIcon)
 
 func _createCoin():
 	var coinScene = COIN_ICON_SCENE.instantiate()
 	add_child(coinScene)
-	await get_tree().create_timer(0.1).timeout
 
 	return coinScene
-
 
 func _on_button_pressed():
 	_animateCoin()
