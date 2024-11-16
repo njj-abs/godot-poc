@@ -7,10 +7,10 @@ var coinAmount = 5
 @onready var coinIcon = $CoinIcon
 
 func _ready():
-	pass
-	#_animateCoin()
+	_animateCoin()
 
 func _animateCoin():
+	coinIcon.blast.emitting = true
 	for i in coinAmount:
 		var coin = await _createCoin()
 		var tween = coin.play(coinIcon)

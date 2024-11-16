@@ -13,7 +13,6 @@ grow_vertical = 2
 script = ExtResource("1_x3vna")
 
 [node name="CoinIcon" parent="." instance=ExtResource("1_wxscb")]
-visible = false
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
